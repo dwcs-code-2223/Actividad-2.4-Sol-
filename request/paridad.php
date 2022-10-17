@@ -11,8 +11,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <?php
-        foreach ($_REQUEST as $clave => $valor) {
-            echo "<strong>$clave</strong>:";
+        $valor = $_POST["numero"];
+        if(isset($valor)){       
+           
             if (!is_array($valor)) {
                 echo " $valor <br/>";
                 echo "El tipo de \$valor es: " . gettype($valor) . "<br/>";

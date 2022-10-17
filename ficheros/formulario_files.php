@@ -1,4 +1,5 @@
 <?php
+include_once "../include/mover.php";
 
 foreach ($_POST as $clave => $valor) {
 
@@ -22,9 +23,33 @@ foreach ($_POST as $clave => $valor) {
 foreach ($_FILES as $input => $infoArr) { //$input será el valor de name en el marcado HTML (sin corchetes)
     if (is_array($infoArr["name"])) { //Si se envía un array de ficheros con el valor de name  en <input type="file"> terminado en []
         foreach ($infoArr["name"] as $i => $value) {
-
             echo "<strong>File name " . ++$i . " </strong>:";
 
+            echo $value . "<br>";
+        }
+        
+         foreach ($infoArr["type"] as $i => $value) {
+            echo "<strong>File type " . ++$i . " </strong>:";
+            echo $value . "<br>";
+        }
+        
+         foreach ($infoArr["tmp_name"] as $i => $value) {
+            echo "<strong>Tmp name " . ++$i . " </strong>:";
+            echo $value . "<br>";
+        }
+        
+         foreach ($infoArr["error"] as $i => $value) {
+            echo "<strong>Error code " . ++$i . " </strong>:";
+            echo $value . "<br>";
+            
+            if($value==0){
+               // mover_temp()
+            }
+            
+        }
+        
+          foreach ($infoArr["size"] as $i => $value) {
+            echo "<strong>Size bytes " . ++$i . " </strong>:";
             echo $value . "<br>";
         }
     } else { //Si se envía un único fichero (El valor del atributo name en <input type="file"> no termina con [])
