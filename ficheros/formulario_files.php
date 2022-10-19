@@ -1,4 +1,5 @@
 <?php
+
 include_once "../include/mover.php";
 
 foreach ($_POST as $clave => $valor) {
@@ -27,28 +28,42 @@ foreach ($_FILES as $input => $infoArr) { //$input será el valor de name en el 
 
             echo $value . "<br>";
         }
-        
-         foreach ($infoArr["type"] as $i => $value) {
+
+        foreach ($infoArr["type"] as $i => $value) {
             echo "<strong>File type " . ++$i . " </strong>:";
             echo $value . "<br>";
         }
-        
-         foreach ($infoArr["tmp_name"] as $i => $value) {
+
+        foreach ($infoArr["tmp_name"] as $i => $value) {
             echo "<strong>Tmp name " . ++$i . " </strong>:";
             echo $value . "<br>";
         }
-        
-         foreach ($infoArr["error"] as $i => $value) {
-            echo "<strong>Error code " . ++$i . " </strong>:";
-            echo $value . "<br>";
-            
-            if($value==0){
-               // mover_temp()
+
+        foreach ($infoArr["error"] as $i => $value) {
+           
+        echo "<strong>Error code " . $i+1 . " </strong>:";
+         echo $value . "<br>";
+
+            // UPLOAD_ERR_OK
+            //Value: 0; There is no error, the file uploaded with success.
+
+            if ($value == UPLOAD_ERR_OK) {
+                $origen = $infoArr["tmp_name"][$i];
+                $destino = "../ficheros_subidos/".$infoArr["name"][$i];
+                //echo "\$destino". $destino."<br/>";
+                if(mover_temp($origen, $destino)){
+                        echo "Fichero ".$destino ." movido con éxito<br/>"; 
+                }
+                else{
+                    echo "No se ha podido mover ".$origen. "<br/>";
+                }
             }
             
+           
+           
         }
-        
-          foreach ($infoArr["size"] as $i => $value) {
+
+        foreach ($infoArr["size"] as $i => $value) {
             echo "<strong>Size bytes " . ++$i . " </strong>:";
             echo $value . "<br>";
         }
